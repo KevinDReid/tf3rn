@@ -3,6 +3,9 @@ import { Text, View, FlatList, StyleSheet } from "react-native";
 import Card from "../components/card/Card";
 
 export default class Home extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     const items = [
       {
@@ -40,6 +43,7 @@ export default class Home extends Component {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Card
+                navigation={this.props.navigation}
                 username={item.username}
                 profImg={item.profImg}
                 img={item.img}
