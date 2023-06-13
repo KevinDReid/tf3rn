@@ -2,7 +2,7 @@ import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import React, { Component } from 'react'
 import { auth } from '../../firebase/config'
 
-class FormLogin extends Component {
+export default class FormLogin extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -43,5 +43,3 @@ class FormLogin extends Component {
     )
   }
 }
-
-export default FormLogin
