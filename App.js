@@ -7,12 +7,16 @@ import Home from "./src/screens/Home";
 import CommentScreen from "./src/screens/Comment";
 import Like from './src/screens/Like'
 import HomeMenu from "./src/navigation/HomeMenu";
+import Register from "./src/screens/Register"
+import Login from "./src/screens/Login"
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
 
       <Stack.Navigator>
+          <Stack.Screen name="Register" component={Register}/>
+          <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="HomeMenu" component={ HomeMenu } options={{headerShown:false}} />
           <Stack.Screen name="Comment" component={ CommentScreen } />
           <Stack.Screen name="Like" component={ Like } />
