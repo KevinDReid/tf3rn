@@ -3,16 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
-import Register from "./src/screens/Register";
-import Login from "./src/screens/Login";
+import CommentScreen from "./src/screens/Comment";
+import Like from './src/screens/Like'
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <>
-    <Home />
-    <Register />
-    <Login />
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+          <Stack.Screen name="Home" component={ Home } />
+          <Stack.Screen name="Comment" component={ CommentScreen } />
+          <Stack.Screen name="Like" component={ Like } />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <Home />
     // <NavigationContainer>
     //   <Stack.Navigator>
     //     <Stack.Screen

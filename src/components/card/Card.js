@@ -6,6 +6,7 @@ import {
   FontAwesome5,
   Ionicons,
 } from "@expo/vector-icons";
+import Comment from "../../screens/Comment";
 import { NavigationContainer } from "@react-navigation/native-stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 export default class Card extends Component {
@@ -61,7 +62,7 @@ export default class Card extends Component {
           </div>
           <div style={styles.postInfo}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("")}
+              onPress={() => this.props.navigation.navigate("Like")}
             >
               <Text>{this.state.likes} Likes </Text>
             </TouchableOpacity>
@@ -90,7 +91,7 @@ export default class Card extends Component {
               </>
             )}
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("")}
+              onPress={() => this.props.navigation.navigate("Comment")}
             >
               <Text>{this.state.comments} Comments</Text>
             </TouchableOpacity>
