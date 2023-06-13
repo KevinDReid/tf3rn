@@ -34,13 +34,49 @@ export default class Home extends Component {
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
         comments: "2",
       },
+      {
+        username: "eeeasd",
+        profImg:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        likes: "1",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+        comments: "2",
+      },
+      {
+        username: "eeeasd",
+        profImg:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        likes: "1",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+        comments: "2",
+      },
+      {
+        username: "eeeasd",
+        profImg:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        likes: "1",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+        comments: "2",
+      },
+      {
+        username: "eeeasd",
+        profImg:
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
+        likes: "1",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+        comments: "2",
+      },
     ];
     return (
-      <View>
+      <View style={{flex:1}}>
         <section style={styles.cardSection}>
-          <FlatList
+          <FlatList 
             data={items}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item,index) => index.toString()}
             renderItem={({ item }) => (
               <Card
                 navigation={this.props.navigation}
@@ -51,7 +87,10 @@ export default class Home extends Component {
                 likes={item.likes}
                 comments={item.comments}
               />
+
             )}
+
+
           />
         </section>
       </View>
@@ -60,6 +99,7 @@ export default class Home extends Component {
 }
 const styles = StyleSheet.create({
   cardSection: {
+    overflow:'auto',
     display: "flex",
     justifyContent: "center",
   },

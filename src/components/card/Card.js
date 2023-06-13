@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   postProfImg: {
+    overflow:'visible',
     height: "100%",
     width: "auto",
   },
