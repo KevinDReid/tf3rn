@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { AntDesign } from '@expo/vector-icons'
 
-import Create from '../screens/Create'
+import newPost from '../screens/newPost'
 import Home from '../screens/Home'
 import Search from '../screens/Search'
 import Me from '../screens/Me'
@@ -58,7 +58,7 @@ class HomeMenu extends Component {
                 
         <Tab.Screen
             name='Create'
-            component={Create}
+            component={newPost}
             options={{
                 tabBarIcon: () => <AntDesign name="pluscircleo" size={24} color="black" />
             }} />

@@ -8,6 +8,7 @@ import Like from './src/screens/Like'
 import HomeMenu from "./src/navigation/HomeMenu";
 import Register from "./src/screens/Register"
 import Login from "./src/screens/Login"
+import Profile from './src/screens/Profile'
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="HomeMenu" component={ HomeMenu } options={{headerShown:false}} />
           <Stack.Screen name="Comment" component={ CommentScreen } />
+          <Stack.Screen name="Profile" component={ Profile } />
           <Stack.Screen name="Like" component={ Like } />
       </Stack.Navigator>
   
