@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import {
   AntDesign,
   FontAwesome,
@@ -18,7 +18,7 @@ export default class Card extends Component {
       img: this.props.img,
       description: this.props.desc,
       likes: this.props.likes,
-      comments: this.props.comments,
+      commentNumber: this.props.commentNumber,
       fullText: false,
     };
   }
@@ -90,10 +90,21 @@ export default class Card extends Component {
                 </Text>
               </>
             )}
+          <FlatList
+                   data={this.props.firstComments}
+                   keyExtractor={(item,index) => index.toString()}
+                   renderItem={({ item }) => (<div style={styles.firstComments}>
+                    <Text style={{fontWeight:'bold'}}>{item.data.username} </Text>
+                    <Text>{item.data.text}</Text>
+                   </div>
+                   )
+
+                  }
+          />
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Comment", {idPost: this.props.id})}
             >
-              <Text>{this.state.comments} Comments</Text>
+              <Text>{this.state.commentNumber} Comments</Text>
             </TouchableOpacity>
           </div>
         </article>
@@ -149,4 +160,8 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "auto",
   },
+  firstcomments:{
+    display:'flex'
+
+  }
 });
