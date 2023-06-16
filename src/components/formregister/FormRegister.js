@@ -22,6 +22,7 @@ export default class FormRegister extends Component {
                 owner:auth.currentUser.email,
                 createdAt: Date.now(),
                 username: this.state.username,
+                password: this.state.userPassword,
                 pfp: this.state.pfp,
                 bio: this.state.userBio
             })

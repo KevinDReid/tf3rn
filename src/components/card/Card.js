@@ -94,7 +94,9 @@ export default class Card extends Component {
                    data={this.props.firstComments}
                    keyExtractor={(item,index) => index.toString()}
                    renderItem={({ item }) => (<div style={styles.firstComments}>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate("Profile", {username: item.data.username})}>
                     <Text style={{fontWeight:'bold'}}>{item.data.username} </Text>
+                    </TouchableOpacity>
                     <Text>{item.data.text}</Text>
                    </div>
                    )
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "auto",
   },
-  firstcomments:{
+  firstComments:{
     display:'flex'
 
   }

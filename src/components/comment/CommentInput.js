@@ -1,21 +1,43 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { db } from '../../firebase/config'
+import { db, auth } from '../../firebase/config'
 export default class CommentInput extends Component {
     constructor(props){
         super(props)
         this.state={
             text: '',
+            commentatorUsername:'',
+            loading:true
         }
     }
+    componentDidMount(){
+
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
+            docs =>{
+                docs.forEach(
+                    doc=> {
+                        console.log(doc);
+                        this.setState({
+                            commentatorUsername: doc.data().username
+                        })
+                    }
+                    )
+                
+            })
+
+    }
     onSubmit(){
+        
         db.collection('comments').add(
             {
-                username: 'tralala',
+                username: this.state.commentatorUsername,
                 text:this.state.text,
-                created_at: Date.now()
+                created_at: Date.now(),
+                idPost:this.props.idPost
             }
-        ).then().catch(error =>
+        ).then(
+            this.setState({loading:false})
+        ).catch(error =>
             console.log(error))
     }
   render() {

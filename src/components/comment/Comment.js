@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native'
-import { db } from '../../firebase/config'
+import { db,auth } from '../../firebase/config'
 export default class Comment extends Component {
     constructor(props){
         super(props)

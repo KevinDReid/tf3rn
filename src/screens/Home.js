@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from "react-native";
 import Card from "../components/card/Card";
-import { db } from "../firebase/config";
+import { db,auth } from "../firebase/config";
 export default class Home extends Component {
   constructor(props){
     super(props)
@@ -82,7 +82,7 @@ export default class Home extends Component {
         id:6
       },
     ];
-           db.collection('comments').where('idPost', '==', items[0].id).onSnapshot(
+           db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', items[0].id).onSnapshot(
             docs=>{
                 let comments = []
                 docs.forEach(
@@ -177,10 +177,12 @@ export default class Home extends Component {
         id:6
       },
     ];
-    console.log(items);
+    console.log(auth.currentUser);
+
     return (
       <View style={{flex:1}}>
         <section style={styles.cardSection}>
+          
         {
   this.state.loading ?
   <ActivityIndicator size='large' color='blue'/> : (

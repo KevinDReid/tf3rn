@@ -32,7 +32,7 @@ export default class CommentScreen extends Component {
             
         }
         )
-        db.collection('comments').where('idPost', '==', this.props.route.params.idPost).onSnapshot(
+        db.collection('comments').orderBy('created_at', 'desc').where('idPost', '==', this.props.route.params.idPost).onSnapshot(
             docs=>{
                 let comments = []
                 docs.forEach(
@@ -71,7 +71,8 @@ export default class CommentScreen extends Component {
         />
      
         </section>    
-        <CommentInput/>    
+
+        <CommentInput idPost={this.props.route.params.idPost}/>    
       </View>
     )
   }
