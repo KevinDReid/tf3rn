@@ -29,3 +29,14 @@ export default class Register extends Component {
     )
   }
 }
+const styles = StyleSheet.create({
+  container:{
+      flex:1
+  },
+  camera:{
+      flex:1
+  },
+  img: {
+      flex:1
+  }
+})

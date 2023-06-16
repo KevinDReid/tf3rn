@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { Component } from 'react'
 import { Camera } from 'expo-camera'
-
+import { storage } from '../../firebase/config'
 
 export default class Ourcamera extends Component {
     constructor(props){
@@ -22,9 +22,9 @@ export default class Ourcamera extends Component {
 
     takePic(){
         this.cameraFunction.takePictureAsync()
-        .then(fotoEnMemoria => {
+        .then(photoTaken => {
             this.setState({
-                photo: fotoEnMemoria.uri,
+                photo: photoTaken.uri,
                 showCamera: false
             })
         })
@@ -34,9 +34,9 @@ export default class Ourcamera extends Component {
     accept(){
         fetch(this.state.photo)
         .then(resp => resp.blob())
-        .then(imagen => {
+        .then(img => {
             const ref = storage.ref(`photo/${Date.now()}.jpg`)
-            ref.put(imagen)
+            ref.put(img)
             .then(()=>{
                 ref.getDownloadURL()
                 .then((url)=> this.props.newPic(url))
