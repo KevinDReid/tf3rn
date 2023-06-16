@@ -34,41 +34,66 @@ export default class FormRegister extends Component {
     
     render() {
         return (
-          <View>
-            <TextInput
+          <View style={styles.container}>
+            <TextInput style={styles.center}
                 placeholder='Your email, NOW'
                 keyboardType='email-address'
                 onChangeText={(text)=> this.setState({userMail: text}) }
                 value={this.state.userMail}
             />
-            <TextInput
+            <TextInput style={styles.center}
                 placeholder='username'
                 onChangeText={(text)=> this.setState({username: text}) }
                 value={this.state.username}
             />
-            <TextInput
+            <TextInput style={styles.center}
                 placeholder='Password here please'
                 onChangeText={(text) => this.setState({userPassword: text})}
                 value={this.state.userPassword}
                 secureTextEntry={true}
             />
-            <TextInput
+            <TextInput style={styles.center}
                 placeholder='Profile Picture link'
                 onChangeText={(text) => this.setState({pfp: text})}
                 value={this.state.pfp}
             />
-            <TextInput
+            <TextInput style={styles.center}
                 placeholder='Bio'
                 onChangeText={(text) => this.setState({userBio: text})}
                 value={this.state.userBio}
             />
-            <TouchableOpacity
+            <TouchableOpacity style={styles.register}
                 onPress={()=> this.newUser(this.state.userMail, this.state.userPassword)}
             >
-                <Text>Register</Text>
+                <Text style={styles.boldtext}>Register</Text>
             </TouchableOpacity>
           </View>
         )
       }
 }
-
+const styles = StyleSheet.create({
+    container:{
+        display: "flex",
+        alignItems: "center",
+    },
+    center:{
+        borderWidth:2,
+        borderColor: "lightblue",
+        width:"70%",
+        marginTop:30,
+        heigth: 20,
+        textAlign:'center',
+    },
+    register:{
+        marginTop:15,
+        marginBottom:30,
+        borderWidth:2,
+        width:"18%",
+        paddingBottom: 2,
+        textAlign:'center',
+        backgroundColor:"lightblue",
+    },
+    boldtext:{
+        fontWeight:'bold',
+    }
+  })
