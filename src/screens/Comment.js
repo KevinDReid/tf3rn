@@ -32,7 +32,7 @@ export default class CommentScreen extends Component {
             
         }
         )
-        db.collection('comments').onSnapshot(
+        db.collection('comments').where('idPost', '==', this.props.route.params.idPost).onSnapshot(
             docs=>{
                 let comments = []
                 docs.forEach(

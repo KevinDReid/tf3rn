@@ -10,7 +10,7 @@ export default class Comment extends Component {
 
     }
     componentDidMount(){
-        db.collection('users').where('username', '==', this.props.username).onSnapshot(
+        db.collection('users').where('username', '==', 'tralala').onSnapshot(
             docs =>{
                 let userImages=[]
                 docs.forEach(

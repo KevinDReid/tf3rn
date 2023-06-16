@@ -91,7 +91,7 @@ export default class Card extends Component {
               </>
             )}
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Comment")}
+              onPress={() => this.props.navigation.navigate("Comment", {idPost: this.props.id})}
             >
               <Text>{this.state.comments} Comments</Text>
             </TouchableOpacity>
