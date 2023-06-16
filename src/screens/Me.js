@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { Text, View, FlatList } from 'react-native'
 import { db } from '../firebase/config'
 import Logout from '../components/me/Logout'
-import Card from '../components/card/Card'
 
 export default class Me extends Component {
   constructor(props){
     super(props)
     this.state = {
-      users: [],
+      user: [],
       loading: true
     }
   }
@@ -23,7 +22,7 @@ export default class Me extends Component {
         }))
 
         this.setState({
-          users: usersArray,
+          user: usersArray,
           loading: false
         })
       }
@@ -35,11 +34,11 @@ export default class Me extends Component {
     return (
       <View>
         <Text> textInComponent </Text>
-        <Logout navigation={this.props.navigation}/>
+        <Logout navigation={this.props.navigation} />
         <FlatList 
-        data={this.state.users}
+        data={this.state.user}
         keyExtractor={(item) => item.id.toString}
-        renderItem={({item})=> <Text>{item.data.username}</Text>}/>
+        renderItem={({item})=> <Text>{item.data.owner}</Text>}/>
       </View>
     )
   }
