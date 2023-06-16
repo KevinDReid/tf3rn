@@ -11,173 +11,53 @@ export default class Home extends Component {
     }
   }
   componentDidMount(){
-    const items = [
-      {
-        username: "ckqueby",
-        profImg:
-          "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
-        img: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+      db.collection('posts').orderBy('createdAt', 'asc').onSnapshot(
+        docs=>{
+          let posts = []
+          docs.forEach(
 
-        id:"0"
-           },
-      {
-        username: "asdas",
-        profImg: "https://cdn-icons-png.flaticon.com/512/1088/1088537.png",
-        img: "https://cdn-icons-png.flaticon.com/512/1088/1088537.png",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet,",
+              doc =>{
+                  
+                  posts.push({
+                      id: doc.id,
+                      data: doc.data()
+                  })
+                  
+              }
+          )
+          console.log(posts);
+          this.setState({
+              posts: posts,
+              loading: false
+          })
+      }
+      )
 
-        id:"1"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
+  //          db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', this.state.posts).onSnapshot(
+  //           docs=>{
+  //               let comments = []
+  //               docs.forEach(
 
-        id:"2"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:"3"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:"4"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:5
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:6
-      },
-    ];
-           db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', items[0].id).onSnapshot(
-            docs=>{
-                let comments = []
-                docs.forEach(
-
-                    doc =>{
+  //                   doc =>{
                         
-                        comments.push({
-                            id: doc.id,
-                            data: doc.data()
-                        })
+  //                       comments.push({
+  //                           id: doc.id,
+  //                           data: doc.data()
+  //                       })
                         
-                    }
-                )
+  //                   }
+  //               )
 
-                this.setState({
-                    comments: comments,
-                    loading: false
-                })
-                console.log(comments);
-            }
-        )
+  //               this.setState({
+  //                   comments: comments,
+  //               })
+  //               console.log(comments);
+  //           }
+  //       )
   }
   render() {
-    const items = [
-      {
-        username: "ckqueby",
-        profImg:
-          "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
-        img: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
 
-        id:"0"
-           },
-      {
-        username: "asdas",
-        profImg: "https://cdn-icons-png.flaticon.com/512/1088/1088537.png",
-        img: "https://cdn-icons-png.flaticon.com/512/1088/1088537.png",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet,",
-
-        id:"1"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:"2"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:"3"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:"4"
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:5
-      },
-      {
-        username: "eeeasd",
-        profImg:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=-1&s=1",
-        likes: "1",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec aliquet ipsum. Vivamus cursus, dolor in scelerisque faucibus, lectus risus commodo ligula, a suscipit diam ipsum ac leo. Sed quis nisi non mi tincidunt pellentesque sed quis lorem. Nunc vulputate eu turpis sed iaculis. Maecenas ut nulla non neque mattis pulvinar ac vel ex. Donec viverra tincidunt dui, in faucibus libero ultrices ac. Aenean viverra, massa ac pretium tristique, ex enim fringilla felis, vel aliquam eros nibh sit amet risus. Integer ac felis sapien.",
-
-        id:6
-      },
-    ];
-    console.log(auth.currentUser);
+    console.log(auth.currentUser.email);
 
     return (
       <View style={{flex:1}}>
@@ -187,18 +67,19 @@ export default class Home extends Component {
   this.state.loading ?
   <ActivityIndicator size='large' color='blue'/> : (
     <FlatList 
-      data={items}
+      data={this.state.posts}
       keyExtractor={(item,index) => index.toString()}
       renderItem={({ item }) => (
         <Card
           id={item.id}
+          myLike={item.data.whoLiked.some(email => email == auth.currentUser.email)}
           navigation={this.props.navigation}
-          username={item.username}
-          profImg={item.profImg}
-          img={item.img}
-          desc={item.desc}
-          likes={item.likes}
-          commentNumber={this.state.comments.length}
+          email={item.data.owner}
+          profImg={item.data.profImg}
+          img={item.data.photo}
+          desc={item.data.descript}
+          likes={item.data.likes}
+          commentNumber={this.state.comments}
           firstComments={this.state.comments.slice(0,4)}
         />
       )}

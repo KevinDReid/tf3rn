@@ -35,6 +35,7 @@ export default class NewPost extends Component {
             likes: likes,
             comments: comments,
             createdAt: Date.now(),
+            whoLiked:[]
         })
         .then((resp)=>{
             this.props.navigation.navigate('Home')

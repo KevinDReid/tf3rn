@@ -10,7 +10,7 @@ import Home from '../screens/Home'
 import Search from '../screens/Search'
 import Me from '../screens/Me'
 
-import { db } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 
 const Tab = createBottomTabNavigator()
 
@@ -23,7 +23,7 @@ class HomeMenu extends Component {
 
     }
     componentDidMount(){
-        db.collection('users').where('username', '==', 'tralala').onSnapshot(
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs =>{
                 let userImages=[]
                 docs.forEach(
@@ -34,9 +34,11 @@ class HomeMenu extends Component {
                         })
                     }
                     )
+                    
                 this.setState({
                     profImg: userImages[0].data.pfp
-                })})
+                })}
+                )
     }
     render() {
 
