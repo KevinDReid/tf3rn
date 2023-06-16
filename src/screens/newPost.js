@@ -4,7 +4,7 @@ import { db, auth } from '../firebase/config'
 import Ourcamera from '../components/create/Ourcamera'
 import Post from '../components/create/Post'
 
-export default class Create extends Component {
+export default class newPost extends Component {
     constructor(props){
         super(props)
         this.state = {

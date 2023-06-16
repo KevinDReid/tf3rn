@@ -1,3 +1,4 @@
+// #Perdón
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import {
@@ -9,10 +10,12 @@ import {
 import Comment from "../../screens/Comment";
 import { NavigationContainer } from "@react-navigation/native-stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { db,auth } from "../../firebase/config";
 export default class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLiked:false,
       username: this.props.username,
       profImg: this.props.profImg,
       img: this.props.img,
@@ -22,6 +25,103 @@ export default class Card extends Component {
       fullText: false,
     };
   }
+  componentDidMount(){
+    let posts = db.collection('posts').where('id', '==', this.props.id)
+    posts.onSnapshot(
+      docs=>{
+        let likes = []
+        docs.forEach(
+
+            doc =>{
+                
+                likes.push({
+                    id: doc.id,
+                    data: doc.data().whoLiked
+                })
+                
+            }
+        )
+        if(likes.includes(auth.currentUser.email)){
+          this.setState({
+            isLiked:true
+          })
+
+        }else{
+          this.setState({
+            isLiked:false
+          })
+        }
+        })}
+  
+  like(){
+
+    db.collection('posts').where('id', '==', this.props.id).onSnapshot(
+      docs=>{
+          let comments = []
+          docs.forEach(
+
+              doc =>{
+                  
+                  comments.push({
+                      id: doc.id,
+                      data: doc.data()
+                  })
+                  
+              }
+          )
+
+          this.setState({
+              comments: comments,
+              loading: false
+          })
+          console.log(comments);
+      }
+  )
+    // db.collection('posts').where('idPost', '==', this.props.id).onSnapshot(
+    //   docs=>{
+    //     let likes = []
+    //     docs.forEach(
+    //         doc=>
+    //         console.log(doc)
+    //       )
+    //     docs.forEach(
+
+    //         doc =>{
+    //             likes.push({
+    //                 id: doc.id,
+    //                 data: doc.data().whoLiked
+    //             })
+                
+    //         }
+    //     )
+    //     console.log(likes);
+    //     if(likes.some(item => item.data.includes(auth.currentUser.email))){
+    //       userId = likes.filter((el)=> {return el == auth.currentUser.email})
+    //       this.setState({
+    //         isLiked:false
+    //       })
+    //       likes.filter((el)=> {return el.data !=auth.currentUser.email})
+    //       db.collection('posts').doc(this.props.id).update({
+    //         whoLiked: likes
+    //       })
+    //     }else{
+    //       this.setState({
+    //         isLiked:true
+    //       })
+    //       likes.push(auth.currentUser.email)
+    //       console.log(likes);
+    //       db.collection('posts').doc(this.props.id).update({
+    //         whoLiked: likes
+          // }
+          // )
+        }
+
+        
+    // }
+
+    // )
+    // this.setState({isLiked:true})
+  // }
   changeText(e) {
     if (this.state.fullText) {
       this.setState({
@@ -44,7 +144,10 @@ export default class Card extends Component {
                 source={{ uri: this.state.profImg }}
               />
             </div>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Profile", {username:this.state.username})}>
+
             <Text style={{ fontSize: 13 }}>{this.state.username}</Text>
+            </TouchableOpacity>
           </div>
           <Image
             style={styles.cardImg}
@@ -52,12 +155,18 @@ export default class Card extends Component {
             resizeMode="cover"
           />
           <div style={styles.postButtons}>
+            <TouchableOpacity onPress={()=>this.like()}>
+              {
+                this.state.isLiked ?
+                <AntDesign name="heart" size={24} color="black" /> :
             <AntDesign
-              name="hearto"
-              size={24}
-              color="black"
-              style={styles.likeButton}
+            name="hearto"
+            size={24}
+            color="black"
+            style={styles.likeButton}
             />
+          }
+              </TouchableOpacity>
             <FontAwesome5 name="comment" size={24} color="black" />
           </div>
           <div style={styles.postInfo}>
@@ -78,7 +187,6 @@ export default class Card extends Component {
               </>
             ) : (
               <>
-                {console.log(this.state.description.split(" ").length)}
                 <Text>
                   {this.state.description.split(" ").slice(0, 15).join(" ")}
                   ... &#160;
