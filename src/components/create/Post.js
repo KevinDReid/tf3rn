@@ -22,3 +22,8 @@ export default class Post extends Component {
         )
     }
 }
+let styles = StyleSheet.create({
+    input:{
+        
+    }
+})

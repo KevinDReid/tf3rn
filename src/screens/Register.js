@@ -16,6 +16,7 @@ export default class Register extends Component {
   render() {
     return (
       <View>
+
         <FormRegister navigation={this.props.navigation}/>
         <Text>
             Already a member? 

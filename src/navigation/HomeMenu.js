@@ -5,12 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { AntDesign } from '@expo/vector-icons'
 
-import newPost from '../screens/newPost'
 import Home from '../screens/Home'
+import Newpost from '../screens/Newpost'
 import Search from '../screens/Search'
 import Me from '../screens/Me'
 
-import { db } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 
 const Tab = createBottomTabNavigator()
 
@@ -23,7 +23,7 @@ class HomeMenu extends Component {
 
     }
     componentDidMount(){
-        db.collection('users').where('username', '==', 'tralala').onSnapshot(
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs =>{
                 let userImages=[]
                 docs.forEach(
@@ -34,9 +34,11 @@ class HomeMenu extends Component {
                         })
                     }
                     )
+                    
                 this.setState({
                     profImg: userImages[0].data.pfp
-                })})
+                })}
+                )
     }
     render() {
 
@@ -58,7 +60,7 @@ class HomeMenu extends Component {
                 
         <Tab.Screen
             name='Create'
-            component={newPost}
+            component={Newpost}
             options={{
                 tabBarIcon: () => <AntDesign name="pluscircleo" size={24} color="black" />
             }} />

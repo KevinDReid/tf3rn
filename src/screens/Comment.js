@@ -25,7 +25,6 @@ export default class CommentScreen extends Component {
                         })
                     }
                     )
-                console.log(userImages[0].data.pfp);
                 this.setState({
                     userImg: userImages[0].data.pfp
                 })

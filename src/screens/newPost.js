@@ -4,7 +4,7 @@ import { db, auth } from '../firebase/config'
 import Ourcamera from '../components/create/Ourcamera'
 import Post from '../components/create/Post'
 
-export default class newPost extends Component {
+export default class Newpost extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -35,6 +35,7 @@ export default class newPost extends Component {
             likes: likes,
             comments: comments,
             createdAt: Date.now(),
+            whoLiked:[]
         })
         .then((resp)=>{
             this.props.navigation.navigate('Home')

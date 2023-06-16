@@ -16,16 +16,36 @@ export default class Card extends Component {
     super(props);
     this.state = {
       isLiked:false,
-      username: this.props.username,
       profImg: this.props.profImg,
       img: this.props.img,
       description: this.props.desc,
       likes: this.props.likes,
       commentNumber: this.props.commentNumber,
       fullText: false,
+      username:''
     };
   }
   componentDidMount(){
+    console.log(this.props.email);
+    db.collection('users').where('email', '==', this.props.email).onSnapshot(
+      docs=>{
+        docs.forEach(
+
+            doc =>{
+              
+              this.setState({
+                username: doc.data().username
+              })
+                
+            }
+        )}
+    )
+    if(this.props.myLike == true){
+      this.setState({
+      isLiked:true   
+      })
+    }
+    console.log(this.props.myLike);
     let posts = db.collection('posts').where('id', '==', this.props.id)
     posts.onSnapshot(
       docs=>{
@@ -56,72 +76,76 @@ export default class Card extends Component {
   like(){
 
     db.collection('posts').where('id', '==', this.props.id).onSnapshot(
-      docs=>{
-          let comments = []
-          docs.forEach(
-
-              doc =>{
-                  
-                  comments.push({
-                      id: doc.id,
-                      data: doc.data()
-                  })
-                  
-              }
+         docs=>{
+        let likes = []
+        docs.forEach(
+            doc=>
+            console.log(doc)
           )
+        docs.forEach(
 
-          this.setState({
-              comments: comments,
-              loading: false
-          })
-          console.log(comments);
-      }
-  )
-    // db.collection('posts').where('idPost', '==', this.props.id).onSnapshot(
-    //   docs=>{
-    //     let likes = []
-    //     docs.forEach(
-    //         doc=>
-    //         console.log(doc)
-    //       )
-    //     docs.forEach(
-
-    //         doc =>{
-    //             likes.push({
-    //                 id: doc.id,
-    //                 data: doc.data().whoLiked
-    //             })
+            doc =>{
+                likes.push({
+                    id: doc.id,
+                    data: doc.data()
+                })
                 
-    //         }
-    //     )
-    //     console.log(likes);
-    //     if(likes.some(item => item.data.includes(auth.currentUser.email))){
-    //       userId = likes.filter((el)=> {return el == auth.currentUser.email})
-    //       this.setState({
-    //         isLiked:false
-    //       })
-    //       likes.filter((el)=> {return el.data !=auth.currentUser.email})
-    //       db.collection('posts').doc(this.props.id).update({
-    //         whoLiked: likes
-    //       })
-    //     }else{
-    //       this.setState({
-    //         isLiked:true
-    //       })
-    //       likes.push(auth.currentUser.email)
-    //       console.log(likes);
-    //       db.collection('posts').doc(this.props.id).update({
-    //         whoLiked: likes
-          // }
-          // )
+            }
+        )
+        console.log(auth.currentUser);
+        let likeArr = likes[0].data.whoLiked
+        let postId = likes[0].id
+        if(likeArr.some(item => item.includes(auth.currentUser.email))){
+          let usersLiked = likeArr.filter((el)=> {return el != auth.currentUser.email})
+ 
+        }else{
+          this.setState({
+            isLiked:true
+          })
+          likeArr.push(auth.currentUser.email)
+          console.log(likeArr);
+          db.collection('posts').doc(postId).update({
+            whoLiked: likeArr
+          }
+          )
         }
+        console.log(this.state.isLiked)
 
         
-    // }
+    }
 
-    // )
-    // this.setState({isLiked:true})
-  // }
+    )
+  }
+  disLike(){
+    db.collection('posts').where('id', '==', this.props.id).onSnapshot(
+      docs=>{
+     let likes = []
+     docs.forEach(
+         doc=>
+         console.log(doc)
+       )
+     docs.forEach(
+
+         doc =>{
+             likes.push({
+                 id: doc.id,
+                 data: doc.data()
+             })
+             
+         }
+     )}
+     
+     ).then(
+      ()=>{
+        this.setState({
+          isLiked:false
+        })
+        db.collection('posts').doc(postId).update({
+          whoLiked: usersLiked
+        })
+      }
+     )
+  }
   changeText(e) {
     if (this.state.fullText) {
       this.setState({
@@ -155,26 +179,25 @@ export default class Card extends Component {
             resizeMode="cover"
           />
           <div style={styles.postButtons}>
-            <TouchableOpacity onPress={()=>this.like()}>
               {
                 this.state.isLiked ?
-                <AntDesign name="heart" size={24} color="black" /> :
+            <TouchableOpacity onPress={()=>this.like()}>
+              <AntDesign name="heart" size={24} color="black" />
+              </TouchableOpacity>
+                 :
+            <TouchableOpacity onPress={()=>this.disLike()}>
             <AntDesign
             name="hearto"
             size={24}
             color="black"
             style={styles.likeButton}
             />
-          }
               </TouchableOpacity>
+          }
             <FontAwesome5 name="comment" size={24} color="black" />
           </div>
           <div style={styles.postInfo}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Like")}
-            >
               <Text>{this.state.likes} Likes </Text>
-            </TouchableOpacity>
 
             {this.state.fullText ? (
               <>
