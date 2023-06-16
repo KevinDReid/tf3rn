@@ -19,27 +19,53 @@ export default class FormLogin extends Component {
 
   render() {
     return (
-      <View>
-        <TextInput
+      <View style={styles.container}>
+        <TextInput style={styles.center}
             placeholder='Your email'
             keyboardType='email-address'
             value={this.state.email}
             onChangeText={(text)=> this.setState({email: text})}
         />
-        <TextInput
+        <TextInput style={styles.center}
             placeholder='Your password'
             keyboardType='default'
             value={this.state.password}
             onChangeText={(text)=> this.setState({password: text})}
             secureTextEntry={true}
         />
-        <TouchableOpacity
+        <TouchableOpacity style={styles.login}
             onPress={() => this.log(this.state.email, this.state.password)}
         >
-            <Text>Log in</Text>
+            <Text style={styles.boldtext}>Log in</Text>
 
         </TouchableOpacity>
       </View>
     )
   }
 }
+const styles = StyleSheet.create({
+  container:{
+      display: "flex",
+      alignItems: "center",
+  },
+  center:{
+    borderWidth:2,
+    borderColor: "lightblue",
+    width:"70%",
+    marginTop:30,
+    heigth: 20,
+    textAlign:'center',
+},
+login:{
+    marginTop:15,
+    marginBottom:30,
+    borderWidth:2,
+    width:"18%",
+    paddingBottom: 2,
+    textAlign:'center',
+    backgroundColor:"lightblue",
+},
+boldtext:{
+    fontWeight:'bold',
+}
+})
