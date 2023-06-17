@@ -59,7 +59,6 @@ export default class Home extends Component {
           img={item.data.photo}
           desc={item.data.descript}
           likes={item.data.likes}
-          commentNumber={this.state.comments.length}
         />
       )}
     />

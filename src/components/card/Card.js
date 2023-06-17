@@ -146,7 +146,6 @@ export default class Card extends Component {
             resizeMode="cover"
           />
           <div style={styles.postButtons}>
-            {console.log(this.state.isLiked)}
               {
                 this.state.isLiked ?
                 <TouchableOpacity onPress={()=>this.disLike()}>
@@ -169,7 +168,6 @@ export default class Card extends Component {
             <FontAwesome5 name="comment" size={24} color="black" />
           </div>
           <div style={styles.postInfo}>
-              <Text>{this.state.likes} Likes </Text>
 
             {this.state.fullText ? (
               <>
