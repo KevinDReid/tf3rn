@@ -34,9 +34,9 @@ export default class Ourcamera extends Component {
     accept(){
         fetch(this.state.photo)
         .then(resp => resp.blob())
-        .then(img => {
+        .then(image => {
             const ref = storage.ref(`photo/${Date.now()}.jpg`)
-            ref.put(img)
+            ref.put(image)
             .then(()=>{
                 ref.getDownloadURL()
                 .then((url)=> this.props.newPic(url))
@@ -69,7 +69,7 @@ export default class Ourcamera extends Component {
                     onPress={()=> this.takePic()}
                     >
                         <Text>
-                            Tomar foto
+                            Take pic
                         </Text>
                     </TouchableOpacity>
                 </>
