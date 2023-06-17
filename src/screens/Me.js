@@ -69,6 +69,7 @@ export default class Me extends Component {
 
           <Text style={{fontSize:25, fontWeight:'bold',}}>{this.state.user[0].data.username}</Text>
           <Text> {this.state.user.length > 0 ? this.state.user[0].data.bio : ''} </Text>
+          <Logout navigation={this.props.navigation}/>
       </div>
       </section>
           <FlatList data={this.state.posts} 
