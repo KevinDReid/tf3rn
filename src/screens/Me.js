@@ -57,9 +57,9 @@ export default class Me extends Component {
   render() {
     return (
 <View style={{flex:1}}>
-        <section style={styles.cardSection}>
   <Text> {this.state.user.length > 0 ? this.state.user[0].data.bio : ''} </Text>
-  <Logout navigation={this.props.navigation} />
+  <Logout navigation={this.props.navigation}/>
+        <section style={styles.cardSection}>
         {
   this.state.loading ?
   <ActivityIndicator size='large' color='blue'/> : (
@@ -80,14 +80,8 @@ export default class Me extends Component {
         />
       )}
     />
-  )
-  
+  ) 
 }
-
-
-
-
-
         </section>
       </View>
     );
