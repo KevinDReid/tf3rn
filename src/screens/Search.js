@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, FlatList } from 'react-native'
+import { Text, View, TextInput, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import { db } from '../firebase/config'
 
 export default class Search extends Component {
@@ -32,26 +32,43 @@ export default class Search extends Component {
 
     filter(willFilter){
       let filteredUsers = this.state.usersBackup
-        .filter(user =>{user.data.username.toLowerCase()
-        .includes(willFilter.toLowerCase)})
+        .filter(user =>user.data.username.toLowerCase()
+        .includes(willFilter.toLowerCase()))
         this.setState({users:filteredUsers})
     }
 
     render() {
     return (
-      <View>
-        <Text> textInComponent </Text>
-        <TextInput
+      <View style={styles.container}>
+        <TextInput style={styles.center}
           placeholder='wanna search?'
           onChangeText={(text)=> this.filter(text)}
         
         />
-        <FlatList 
+        <FlatList
         data={this.state.users}
         keyExtractor={item => item.id.toString()}
-        renderItem = {({item})=><Text>{item.data.username}</Text>}
+        renderItem = {({item})=>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Profile", {username:this.state.username})}>
+          <Text>{item.data.username}</Text>
+          </TouchableOpacity>}
         />
       </View>
     )
     }
 }
+const styles = StyleSheet.create({
+  container:{
+      display: "flex",
+      alignItems: "center",
+  },
+  center:{
+      borderWidth:2,
+      borderColor: "lightblue",
+      width:"70%",
+      marginTop:30,
+      borderRadius: '9999rem',
+      heigth: 20,
+      textAlign:'center',
+  },
+})
