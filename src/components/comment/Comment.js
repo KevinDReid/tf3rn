@@ -21,7 +21,7 @@ export default class Comment extends Component {
                         })
                     }
                     )
-                console.log(userImages[0].data.pfp);
+                console.log(userImages[0].data);
                 this.setState({
                     userImg: userImages[0].data.pfp
                 })})
