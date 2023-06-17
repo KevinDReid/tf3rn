@@ -33,27 +33,7 @@ export default class Home extends Component {
       }
       )
 
-  //          db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', this.state.posts).onSnapshot(
-  //           docs=>{
-  //               let comments = []
-  //               docs.forEach(
-
-  //                   doc =>{
-                        
-  //                       comments.push({
-  //                           id: doc.id,
-  //                           data: doc.data()
-  //                       })
-                        
-  //                   }
-  //               )
-
-  //               this.setState({
-  //                   comments: comments,
-  //               })
-  //               console.log(comments);
-  //           }
-  //       )
+           
   }
   render() {
 
@@ -79,8 +59,7 @@ export default class Home extends Component {
           img={item.data.photo}
           desc={item.data.descript}
           likes={item.data.likes}
-          commentNumber={this.state.comments}
-          firstComments={this.state.comments.slice(0,4)}
+          commentNumber={this.state.comments.length}
         />
       )}
     />

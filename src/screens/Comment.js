@@ -14,28 +14,11 @@ export default class CommentScreen extends Component {
         }
     }
     componentDidMount(){
-        db.collection('users').where('username', '==', 'tralala').onSnapshot(
-            docs =>{
-                let userImages=[]
-                docs.forEach(
-                    doc=> {
-                        userImages.push({
-                            id: doc.id,
-                            data: doc.data()
-                        })
-                    }
-                    )
-                this.setState({
-                    userImg: userImages[0].data.pfp
-                })
-            
-        }
-        )
         db.collection('comments').orderBy('created_at', 'desc').where('idPost', '==', this.props.route.params.idPost).onSnapshot(
             docs=>{
                 let comments = []
                 docs.forEach(
-
+                    
                     doc =>{
                         
                         comments.push({
@@ -44,22 +27,23 @@ export default class CommentScreen extends Component {
                         })
                         
                     }
+                    )
+                    
+                    this.setState({
+                        comments: comments,
+                        loading: false
+                    })
+                    console.log(comments);
+                }
                 )
-
-                this.setState({
-                    comments: comments,
-                    loading: false
-                })
-                console.log(comments);
+                
+                
             }
-        )
-
-    }
-
-
-    render() {
-    return (
-      <View  style={{height:700}}>
+            
+            
+            render() {
+                return (
+                    <View  style={{height:700}}>
         <section style={styles.commentSection}>
         <FlatList
         data={this.state.comments}

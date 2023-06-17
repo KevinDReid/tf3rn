@@ -16,11 +16,13 @@ export default class Card extends Component {
     super(props);
     this.state = {
       isLiked:false,
+  
       profImg: this.props.profImg,
       img: this.props.img,
       description: this.props.desc,
       likes: this.props.likes,
-      commentNumber: this.props.commentNumber,
+      commentNumber: 0,
+      firstComments:[],
       fullText: false,
       username:''
     };
@@ -53,7 +55,8 @@ export default class Card extends Component {
         docs.forEach(
 
             doc =>{
-                
+  
+              
                 likes.push({
                     id: doc.id,
                     data: doc.data().whoLiked
@@ -71,7 +74,30 @@ export default class Card extends Component {
             isLiked:false
           })
         }
-        })}
+        })
+        db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', this.props.id).onSnapshot(
+          docs=>{
+              let comments = []
+              docs.forEach(
+
+                  doc =>{
+                      
+                      comments.push({
+                          id: doc.id,
+                          data: doc.data()
+                      })
+                      
+                  }
+              )
+
+              this.setState({
+                commentNumber:comments.length,
+                firstComments: comments.slice(0,4),
+              })
+              console.log(comments);
+          }
+      )
+      }
   
   like(){
 
@@ -222,7 +248,7 @@ export default class Card extends Component {
               </>
             )}
           <FlatList
-                   data={this.props.firstComments}
+                   data={this.state.firstComments}
                    keyExtractor={(item,index) => index.toString()}
                    renderItem={({ item }) => (<div style={styles.firstComments}>
                     <TouchableOpacity onPress={()=> this.props.navigation.navigate("Profile", {username: item.data.username})}>
