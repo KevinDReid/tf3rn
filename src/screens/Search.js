@@ -49,10 +49,11 @@ export default class Search extends Component {
         data={this.state.users}
         keyExtractor={item => item.id.toString()}
         renderItem = {({item})=>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Profile", {username:this.state.username})}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Profile", {username:item.data.username})}>
           <Text>{item.data.username}</Text>
           </TouchableOpacity>}
         />
+        {console.log(this.state.users)}
       </View>
     )
     }
