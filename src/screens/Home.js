@@ -55,7 +55,7 @@ export default class Home extends Component {
           myLike={item.data.whoLiked.some(email => email == auth.currentUser.email)}
           navigation={this.props.navigation}
           email={item.data.owner}
-          profImg={item.data.profImg}
+          profImg={item.data.pfp}
           img={item.data.photo}
           desc={item.data.descript}
           likes={item.data.likes}
