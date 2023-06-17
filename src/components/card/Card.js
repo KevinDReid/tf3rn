@@ -11,16 +11,17 @@ import Comment from "../../screens/Comment";
 import { NavigationContainer } from "@react-navigation/native-stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { db,auth } from "../../firebase/config";
+import firebase from "firebase";
 export default class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLiked:false,
   
-      profImg: this.props.profImg,
+      profImg: '',
       img: this.props.img,
       description: this.props.desc,
-      likes: this.props.likes,
+      likes: 0,
       commentNumber: 0,
       firstComments:[],
       fullText: false,
@@ -29,14 +30,14 @@ export default class Card extends Component {
   }
   componentDidMount(){
     console.log(this.props.email);
-    db.collection('users').where('email', '==', this.props.email).onSnapshot(
+    db.collection('users').where('owner', '==', this.props.email).onSnapshot(
       docs=>{
         docs.forEach(
-
-            doc =>{
-              
+          
+          doc =>{
               this.setState({
-                username: doc.data().username
+                username: doc.data().username,
+                profImg: doc.data().pfp
               })
                 
             }
@@ -44,37 +45,21 @@ export default class Card extends Component {
     )
     if(this.props.myLike == true){
       this.setState({
-      isLiked:true   
+        isLiked:true   
       })
     }
-    console.log(this.props.myLike);
-    let posts = db.collection('posts').where('id', '==', this.props.id)
-    posts.onSnapshot(
-      docs=>{
-        let likes = []
-        docs.forEach(
+    console.log(this.state.isLiked);
+    let likes = []
+    db.collection('posts').doc(this.props.id).get().then((doc)=>{
+      console.log(doc.data());
 
-            doc =>{
-  
-              
-                likes.push({
-                    id: doc.id,
-                    data: doc.data().whoLiked
+              this.setState({
+                 whoLiked: doc.data().whoLiked
                 })
-                
             }
         )
-        if(likes.includes(auth.currentUser.email)){
-          this.setState({
-            isLiked:true
-          })
-
-        }else{
-          this.setState({
-            isLiked:false
-          })
-        }
-        })
+       
+        
         db.collection('comments').orderBy('created_at', 'asc').where('idPost', '==', this.props.id).onSnapshot(
           docs=>{
               let comments = []
@@ -93,84 +78,40 @@ export default class Card extends Component {
               this.setState({
                 commentNumber:comments.length,
                 firstComments: comments.slice(0,4),
-              })
-              console.log(comments);
+                              })
           }
-      )
-      }
+      )}
+      
   
   like(){
+    console.log('LIKE');
+    db.collection('posts').doc(this.props.id).update({
+      whoLiked: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
+    })
+    .then((resp) => {
 
-    db.collection('posts').where('id', '==', this.props.id).onSnapshot(
-         docs=>{
-        let likes = []
-        docs.forEach(
-            doc=>
-            console.log(doc)
-          )
-        docs.forEach(
-
-            doc =>{
-                likes.push({
-                    id: doc.id,
-                    data: doc.data()
-                })
-                
-            }
-        )
-        console.log(auth.currentUser);
-        let likeArr = likes[0].data.whoLiked
-        let postId = likes[0].id
-        if(likeArr.some(item => item.includes(auth.currentUser.email))){
-          let usersLiked = likeArr.filter((el)=> {return el != auth.currentUser.email})
- 
-        }else{
-          this.setState({
-            isLiked:true
-          })
-          likeArr.push(auth.currentUser.email)
-          console.log(likeArr);
-          db.collection('posts').doc(postId).update({
-            whoLiked: likeArr
-          }
-          )
-        }
-        console.log(this.state.isLiked)
-
+      this.setState({
+        isLiked: true,
+      });
         
     }
 
     )
   }
   disLike(){
-    db.collection('posts').where('id', '==', this.props.id).onSnapshot(
-      docs=>{
-     let likes = []
-     docs.forEach(
-         doc=>
-         console.log(doc)
-       )
-     docs.forEach(
+    db.collection('posts').doc(this.props.id).update({
+      whoLiked: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+    })
+    .then((resp) => {
 
-         doc =>{
-             likes.push({
-                 id: doc.id,
-                 data: doc.data()
-             })
-             
-         }
-     )}
-     
-     ).then(
-      ()=>{
-        this.setState({
-          isLiked:false
-        })
-        db.collection('posts').doc(postId).update({
-          whoLiked: usersLiked
-        })
-      }
-     )
+      this.setState({
+        isLiked: false,
+      });
+        
+    }
+
+    )
+  
   }
   changeText(e) {
     if (this.state.fullText) {
@@ -205,14 +146,19 @@ export default class Card extends Component {
             resizeMode="cover"
           />
           <div style={styles.postButtons}>
+            {console.log(this.state.isLiked)}
               {
                 this.state.isLiked ?
-            <TouchableOpacity onPress={()=>this.like()}>
-              <AntDesign name="heart" size={24} color="black" />
+                <TouchableOpacity onPress={()=>this.disLike()}>
+              <AntDesign name="heart" size={24} color="black" 
+            style={styles.likeButton}
+            />
+                
               </TouchableOpacity>
                  :
-            <TouchableOpacity onPress={()=>this.disLike()}>
-            <AntDesign
+            <TouchableOpacity onPress={()=>this.like()}>
+
+              <AntDesign
             name="hearto"
             size={24}
             color="black"
@@ -292,6 +238,7 @@ const styles = StyleSheet.create({
     height: 250,
   },
   postButtons: {
+    display:'flex',
     marginTop: 4,
     marginBottom: 4,
   },
